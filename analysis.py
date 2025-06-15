@@ -1,23 +1,37 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoProcessor
+from peft import PeftModel
 import json
 import gc
 gc.collect()
 torch.cuda.empty_cache()
 
-USERNAME = "s2425823"
-REMOTE_DIR = f"/home/{USERNAME}/"
 
-device = "cuda:0"
-model_path = "DAMO-NLP-SG/VideoLLaMA3-7B"
+USERNAME = "s2425823"
+REMOTE_DIR = f"/home/{USERNAME}"
+
+device = "cuda"
+model_path = "/home/s2425823/.cache/huggingface/hub/models--DAMO-NLP-SG--VideoLLaMA3-7B/snapshots/a498675483e2be8e98d092a2cb11a608c2caa8dd"
+# model_path = "DAMO-NLP-SG/VideoLLaMA3-7B"
+
 model = AutoModelForCausalLM.from_pretrained(
     model_path,
     trust_remote_code=True,
     device_map={"": device},
     torch_dtype=torch.bfloat16,
     attn_implementation="flash_attention_2",
+    local_files_only=True
 )
-processor = AutoProcessor.from_pretrained(model_path, trust_remote_code=True)
+
+processor = AutoProcessor.from_pretrained(model_path,
+                                          trust_remote_code=True,
+                                          local_files_only=True)
+
+tuned_model_path = "/home/s2425823/lora_videollama_finetuned_610_17"
+
+model = PeftModel.from_pretrained(model, tuned_model_path)
+# Объединение весов (опционально):
+model = model.merge_and_unload()
 
 with open("data.json", "r", encoding="utf-8") as file:
     data = json.load(file)
@@ -31,8 +45,8 @@ conversation = [
     {
         "role": "user",
         "content": [
-            {"type": "video", "video": {"video_path": REMOTE_DIR + video_path,
-                                        "fps": 1, "max_frames": 180}},
+            {"type": "video", "video": {"video_path": REMOTE_DIR + "/" + video_path,
+                                        "fps": 30, "max_frames": 300 }},
             {"type": "text", "text": text},
         ]
     },
@@ -47,7 +61,7 @@ inputs = processor(
 inputs = {k: v.to(device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
 if "pixel_values" in inputs:
     inputs["pixel_values"] = inputs["pixel_values"].to(torch.bfloat16)
-output_ids = model.generate(**inputs, max_new_tokens=8000)
+output_ids = model.generate(**inputs, max_new_tokens=4000)
 response = processor.batch_decode(output_ids, skip_special_tokens=True)[0].strip()
 
 with open("finish.txt", "w", encoding="utf-8") as file:

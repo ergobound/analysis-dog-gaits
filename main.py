@@ -39,7 +39,16 @@ filterwarnings(action="ignore", message=r".*CallbackQueryHandler", category=PTBU
 
 from constants import *
 
-START, STARTCHAT, CANCEL, WAIT_VIDEO, WAIT_PROMPT, WAIT_DOGINFO = range(0, 6)
+START, STARTCHAT, CANCEL, WAIT_VIDEO, WAIT_AGE, WAIT_BREAD, WAIT_NOTE = range(0, 7)
+PROMPT = "You helpful assistant."
+MESSAGE = """Describe the dog's gait from the video, paying attention to:
+1. Symmetry of limb movements.
+2. The load on the front/rear legs.
+3. Signs of lameness or muscle atrophy.
+4. Pitch characteristics (length, rhythm, tail position).
+Find the dog's musculoskeletal problems.
+
+Try looking up the name of the disease. But only if you are sure that the dog has that particular disease. If you are not sure, don't give the exact diagnosis."""
 
 os.makedirs("sessions", exist_ok=True)
 
@@ -78,27 +87,45 @@ def restricted(func):
 @restricted # включение обработки доступа для start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     # Текст:
-    text = "An AI assistant based on a multimodal visual-linguistic model capable of analyzing a dog's gait and detecting musculoskeletal diseases."
+    # text = "An AI assistant based on a multimodal visual-linguistic model capable of analyzing a dog's gait and detecting musculoskeletal diseases."
+    text = "Hi! I’m GaitMate, your virtual vet assistant. Let’s take care of your dog together."
     # Кнопка. 
     keyboard = [[InlineKeyboardButton(text="Start", callback_data=str(STARTCHAT))]]
     reply_markup = InlineKeyboardMarkup(keyboard)
-
+    video = 'dog-run.mp4'
     if update.callback_query: # при нажатии на кнопку back to start: 
         await update.callback_query.answer()
         await update.callback_query.edit_message_text(text=text, reply_markup=reply_markup)
     else: # при вводе команды /start:
-        await update.message.reply_text(text=text, reply_markup=reply_markup)
+        # await update.message.reply_text(text=text, reply_markup=reply_markup)
+        await update.message.reply_video(video=video,
+                                         caption=text,
+                                         reply_markup=reply_markup)
 
 async def start_chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    text = "Upload a video of the dog."
+    text = """Please upload a short video of your dog walking from the side.
+To ensure accurate analysis, follow these guidelines:
+    1. Camera angle:
+        Record from the side view, keeping the dog’s entire body in the frame at all times (head to tail, all legs visible).
+    2. Walking path:
+        Make your dog walk in a straight line on a flat surface (like a pavement or a hallway).
+        Avoid turns, obstacles, or uneven ground.
+    3. Distance and framing:
+        Stand at a distance where the entire dog fits clearly in the frame (avoid close-ups).
+        Keep the camera steady — avoid shaking or following the dog too closely.
+    4. Lighting:
+        Record in daylight or well-lit conditions so the dog’s movements and limbs are clearly visible.
+    5. Duration:
+        Aim for 5 to 10 seconds of continuous walking."""
     keyboard = [[InlineKeyboardButton(text="Cancel", callback_data=str(CANCEL))]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.callback_query.answer()
-    await update.effective_message.edit_text(text=text, reply_markup=reply_markup)
+    # await update.effective_message.edit_text(text=text, reply_markup=reply_markup)
+    await update.effective_user.send_message(text=text, reply_markup=reply_markup)
     return WAIT_VIDEO
 
-async def prompt(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    # user_data это всегда папка в которую мы сохраняем данные пользователя id
+async def age(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    # user_data это всегда папка в которую мы сохраняем данные пользователя
     user_data = context.user_data
     # проверяем gif или video
     file = update.message.animation or update.message.video
@@ -109,7 +136,7 @@ async def prompt(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     reply_markup = InlineKeyboardMarkup(keyboard)
     # получаем время now 
     timenow = datetime.datetime.now()
-    timenow = datetime.datetime.strftime(timenow, "%y%m%d-%H%m%S")
+    timenow = datetime.datetime.strftime(timenow, "%y%m%d-%H%M%S")
     ###
     user_data["session"] = timenow
     # создать папку sessions/user_data["session"] если ее нет
@@ -133,29 +160,43 @@ async def prompt(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     # Сохраняем файл в папку пользователя
     user_data['video_path'] = file_path
     #
-    text = "Send Prompt."
+    text = "How old is your dog?"
     await update.effective_message.reply_text(text=text, reply_markup=reply_markup)
-    return WAIT_PROMPT
+    return WAIT_AGE
 
-async def dog_info(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def bread(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     message = update.effective_message.text
-    context.user_data["prompt"] = message     # Сохраняем промпт в папку пользователя
-    text = "Send a description of the dog, such as:\nBreed, age, observation of disease progression"
+    context.user_data["age"] = message
+    text = "What breed is your dog? (If mixed, describe the main traits, size)"
     keyboard = [[InlineKeyboardButton(text="Cancel", callback_data=str(CANCEL))]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.effective_message.reply_text(text=text, reply_markup=reply_markup)
-    return WAIT_DOGINFO
+    return WAIT_BREAD
+
+async def note(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    message = update.effective_message.text
+    context.user_data["bread"] = message
+    text = "Have you noticed any signs of discomfort — like limping, stiffness, tiredness, or avoiding one leg? If yes, could you tell me more? (Which leg, when it started, how it affects activity, etc.)"
+    keyboard = [[InlineKeyboardButton(text="Cancel", callback_data=str(CANCEL))]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.effective_message.reply_text(text=text, reply_markup=reply_markup)
+    return WAIT_NOTE
 
 async def final(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user_data = context.user_data
-    # Сохранение введенных данных в перменные prompt, text, video_path, session, data_path, user_data['user_id']
-    prompt = user_data["prompt"]
-    text = user_data["text"] = update.effective_message.text
-    video_path = user_data["video_path"]
+    user_data["prompt"] = PROMPT # теперь промпт стабильно всегда одинаков и един
+    user_data["text"] = f"""The dog in the video is:
+Age: {user_data.get("age")}
+Breed: {user_data.get("bread")}
+Note: {update.effective_message.text}
+
+{MESSAGE}
+"""
     session = user_data["session"]
     data_path = user_data["data_path"] = f"sessions/{session}/data.json"
     user_data['user_id'] = update.effective_user.id
     # Сохраняем данные user_data в файл data.json
+    # (в дальнейшем data.json данные считываются в analysis.py)
     with open(data_path, 'w', encoding='utf-8') as file:
         data = json.dumps(user_data, ensure_ascii=False)
         file.write(data)
@@ -173,8 +214,15 @@ async def waiting_process(context: ContextTypes.DEFAULT_TYPE) -> None:
     session = context.user_data['session']
     # Запускаем функцию process, которая формирует задачу и отправляет ее в кластер
     result = await process(context.user_data)
+    # в переменной result хранится конечный результат анализа, если не было никаких ошибок
+    # text = f"Response to request #{session}:\n{result}"
+    text = f"""Response to request #{session}:
+    {result}
 
-    text = f"Response to request #{session}:\n{result}"
+
+    ⚠️ Please note: I am a virtual assistant and not a licensed veterinarian.
+    The information I provide is for informational purposes only and is not a substitute for professional veterinary diagnosis or treatment.
+    If your dog is in pain or symptoms worsen, please consult a licensed vet as soon as possible."""
     if result:
         await context.bot.send_message(chat_id=user_id, text=text)
     else:
@@ -203,9 +251,10 @@ def main() -> None:
         # при нажатии на кнопку start мы входим в цепочку ConversationHandler
         entry_points=[CallbackQueryHandler(start_chat, pattern=f"^{STARTCHAT}$")],
         states={
-            WAIT_VIDEO: [MessageHandler(filters.VIDEO | filters.ANIMATION, prompt)],
-            WAIT_PROMPT: [MessageHandler(filters.TEXT & ~filters.COMMAND, dog_info)],
-            WAIT_DOGINFO: [MessageHandler(filters.TEXT & ~filters.COMMAND, final)],
+            WAIT_VIDEO: [MessageHandler(filters.VIDEO | filters.ANIMATION, age)],
+            WAIT_AGE: [MessageHandler(filters.TEXT & ~filters.COMMAND, bread)],
+            WAIT_BREAD: [MessageHandler(filters.TEXT & ~filters.COMMAND, note)],
+            WAIT_NOTE: [MessageHandler(filters.TEXT & ~filters.COMMAND, final)],
         },
         # fallbacks - выйти из цепочки:
         fallbacks=[CallbackQueryHandler(cancel, pattern=f"^{CANCEL}$"),

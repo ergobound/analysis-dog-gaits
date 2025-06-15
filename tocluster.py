@@ -8,17 +8,33 @@ SLURM_SCRIPT = """#!/bin/bash
 #SBATCH --job-name=MOGWAI
 #SBATCH --output=output.log
 #SBATCH --error=error.log
-#SBATCH --time=00:59:00
+#SBATCH --time=02:59:00
 #SBATCH --ntasks=1
-#SBATCH --gres=gpu:2
+#SBATCH --gres=gpu:1
+#SBATCH --constraint=l40
+#SBATCH --mem=40gb
 
 source /etc/profile.d/modules.sh
 module load nvidia/cuda-12.4
-source /home/s2425823/test7/bin/activate
+source /home/s2425823/test8/bin/activate
 
 export CUDA_HOME=/deepstore/software/nvidia/cuda-12.4
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+
 python3 analysis.py"""
+
+# Посмотреть мои активные задачи:
+# squeue -u s2425823
+# Завершить задачу:
+# scancel 370226
+
+# MAX_JOBS=4 python -m pip install --no-index --find-links /home/s2425823/packages_lava2 --use-pep517 flash-attn==2.5.8 --no-build-isolation
+
+#  pip install torch==2.4.1 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+
+# Возможно можно использовать "module purge" вместо "source /etc/profile.d/modules.sh"
+
+#SBATCH --mem-per-gpu=48G
 
 async def create_ssh_client():
     """Создание SSH-клиента (для отправки команд на сервере)"""
@@ -41,8 +57,15 @@ async def upload_files(sftp: paramiko.sftp, session, video, data):
     with open(f"sessions/{session}/submit.sh", "wb") as f:
         f.write(bytes(SLURM_SCRIPT, "utf-8"))
     sftp.put(f"sessions/{session}/submit.sh", f"{REMOTE_DIR}sessions/{session}/submit.sh")
-    sftp.put(f"sessions/{session}/submit.sh", f"{REMOTE_DIR}sessions/{session}/submit.sh")
     sftp.put(f"sessions/{session}/data.json", f"{REMOTE_DIR}sessions/{session}/data.json")
+
+    ### Загрузка датасета
+    for i in range(1,30):
+        sftp.put(f"dataset610/{i}.mp4", f"{REMOTE_DIR}/dataset610/{i}.mp4")
+    sftp.put(f"dataset610/train.json", f"{REMOTE_DIR}/dataset610/train.json")
+    sftp.put(f"dataset610/val.json", f"{REMOTE_DIR}/dataset610/val.json")
+    sftp.put(f"dataset610/val_test.json", f"{REMOTE_DIR}/dataset610/val_test.json")
+    
 
 async def submit_job(ssh, session):
     """Запуск задания через sbatch и проверка файла."""
@@ -66,7 +89,7 @@ async def monitor_job(ssh, job_id):
         if job_id not in status:
             print("Задание завершено.")
             break
-        print("Задание в очереди или выполняется...", job_id, score)
+        print("Задание в очереди или выполняется...", job_id, "Прошло времени:", score, "sec")
         await asyncio.sleep(60)
         score += 60
 
@@ -102,12 +125,23 @@ async def process(data: dict): # data = user_data пользователя
     session = data.get("session")
     video = data.get("video_path")
     data = data.get("data_path")
-    # Создание папки session на сервере 
-    try:
-        sftp.chdir(f"sessions/{session}")  # Проверка есть ли путь 
-    except IOError:
-        sftp.mkdir(f"sessions/{session}")  # Если нет, то создается папка session
-        sftp.chdir(f"sessions/{session}")
+
+    # Создание папок на сервере , если их нет
+    folders = [
+        f"sessions/{session}",
+        # "dataset610",
+    ]
+    for path in folders:
+        try:
+            sftp.chdir(path)  # Проверка есть ли путь 
+        except IOError:
+            sftp.mkdir(path)  # Если нет, то создается папка session
+            sftp.chdir(path)
+
+    # sftp.mkdir("dataset610")
+    # sftp.mkdir("dog_gait_lora")
+    # sftp.mkdir("lora_videollama_finetuned")
+    # sftp.mkdir("lora_videollama_finetuned2")
 
     # Загрузка файлов на кластер
     await upload_files(sftp, session, video, data)
