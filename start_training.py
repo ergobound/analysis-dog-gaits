@@ -2,8 +2,16 @@ import paramiko
 import os
 import asyncio
 from constants import *
+import shutil
+import datetime
 
-SLURM_SCRIPT = """#!/bin/bash
+timenow = datetime.datetime.now()
+session = datetime.datetime.strftime(timenow, "%y%m%d-%H%M%S") + "-train"
+dataset_name = "dataset610v3"
+train_script = "train_lora.py" 
+# train_script = "good-train.py"
+
+SLURM_SCRIPT = f"""#!/bin/bash
 
 #SBATCH --job-name=MOGWAI
 #SBATCH --output=output.log
@@ -18,20 +26,11 @@ source /etc/profile.d/modules.sh
 module load nvidia/cuda-12.4
 source /home/s2425823/test8/bin/activate
 
-export HTTP_PROXY=http://proxy.utwente.nl:3128
-export HTTPS_PROXY=http://proxy.utwente.nl:3128
 export CUDA_HOME=/deepstore/software/nvidia/cuda-12.4
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
-python3 analysis.py"""
-
-# Посмотреть мои активные задачи:
-# squeue -u s2425823
-# Завершить задачу:
-# scancel 370226
-
-# Возможно можно использовать "module purge" вместо "source /etc/profile.d/modules.sh"
-
+python3 {train_script}"""
+    
 async def create_ssh_client():
     """Создание SSH-клиента (для отправки команд на сервере)"""
     client = paramiko.SSHClient()
@@ -46,14 +45,19 @@ async def create_sftp_client():
     sftp = paramiko.SFTPClient.from_transport(transport)
     return sftp
 
-async def upload_files(sftp: paramiko.sftp, session, video, data):
+async def upload_files(sftp: paramiko.sftp):
     """Загрузка файлов на кластер."""
-    sftp.put("analysis.py", f"{REMOTE_DIR}/sessions/{session}/analysis.py")
-    sftp.put(video, REMOTE_DIR + '/' + video)
-    with open(f"sessions/{session}/submit.sh", "wb") as f:
-        f.write(bytes(SLURM_SCRIPT, "utf-8"))
+
+    # Загрузка датасета:
+    # for i in range(1,30):
+    #     sftp.put(f"{dataset_name}/{i}.mp4", f"{REMOTE_DIR}/{dataset_name}/{i}.mp4")
+    # sftp.put(f"{dataset_name}/train.json", f"{REMOTE_DIR}/{dataset_name}/train.json")
+
+    # Загрузка train скрипта
+    sftp.put(train_script, f"{REMOTE_DIR}/sessions/{session}/{train_script}")
+
+    # Загрузка bash скрипта
     sftp.put(f"sessions/{session}/submit.sh", f"{REMOTE_DIR}/sessions/{session}/submit.sh")
-    sftp.put(f"sessions/{session}/data.json", f"{REMOTE_DIR}/sessions/{session}/data.json")
 
 async def submit_job(ssh, session):
     """Запуск задания через sbatch и проверка файла."""
@@ -88,7 +92,7 @@ async def download_results(sftp, session, job_id):
         f"{REMOTE_DIR}/sessions/{session}/output.log",
         f"{REMOTE_DIR}/sessions/{session}/error.log",
         f"{REMOTE_DIR}/sessions/{session}/finish.txt",
-        # f"{REMOTE_DIR}/sessions/250615-035347/analysis.py",     
+        f"{REMOTE_DIR}/sessions/{session}/{train_script}",     
     ]
 
     # Создать локальную директорию, если её нет
@@ -104,32 +108,32 @@ async def download_results(sftp, session, job_id):
             print(f"Ошибка при скачивании {remote_file}: {str(err)}")
 
 # Основной процесс
-async def process(data: dict): # data = user_data пользователя
+async def process():
     # ssh
     ssh = await create_ssh_client()
     # sftp
     sftp = await create_sftp_client()
 
-    # Данные пользователя
-    session = data.get("session")
-    video = data.get("video_path")
-    data = data.get("data_path")
-
     # Создание папок на сервере, если их нет
     folders = [
-        f"sessions/{session}",
-        # "dataset610", "dog_gait_lora", "lora_videollama_finetuned"
+        f"sessions/{session}"
     ]
     for path in folders:
         try:
             sftp.chdir(path)  # Проверка есть ли путь 
-        except IOError:
+        except IOError as err:
             sftp.mkdir(path)  # Если нет, то создается папка session
             sftp.chdir(path)
 
+    # создать на пк папку sessions/session если ее нет
+    os.makedirs(f"sessions/{session}", exist_ok=True)
+
+    with open(f"sessions/{session}/submit.sh", "wb") as f:
+        f.write(bytes(SLURM_SCRIPT, "utf-8"))
+
     # Загрузка файлов на кластер
-    await upload_files(sftp, session, video, data)
-    
+    await upload_files(sftp)
+
     # Отправка задания
     job_id = await submit_job(ssh, session)
     if not job_id: return
@@ -144,8 +148,6 @@ async def process(data: dict): # data = user_data пользователя
     sftp.close()
     ssh.close()
 
-    # Прочтение результата из файла finish.txt
-    with open(f"sessions/{session}/finish.txt", 'r', encoding='utf-8') as file:
-        text = file.read()
+    print("END", session)
 
-    return text
+asyncio.run(process())

@@ -160,14 +160,14 @@ async def age(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     # Сохраняем файл в папку пользователя
     user_data['video_path'] = file_path
     #
-    text = "How old is your dog?"
+    text = "How old is your dog?\nIf you have difficulty, write - unknown."
     await update.effective_message.reply_text(text=text, reply_markup=reply_markup)
     return WAIT_AGE
 
 async def bread(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     message = update.effective_message.text
     context.user_data["age"] = message
-    text = "What breed is your dog? (If mixed, describe the main traits, size)"
+    text = "What breed is your dog? (If mixed, describe the main traits, size)\nIf you have difficulty, write - unknown."
     keyboard = [[InlineKeyboardButton(text="Cancel", callback_data=str(CANCEL))]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.effective_message.reply_text(text=text, reply_markup=reply_markup)
@@ -176,7 +176,7 @@ async def bread(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def note(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     message = update.effective_message.text
     context.user_data["bread"] = message
-    text = "Have you noticed any signs of discomfort — like limping, stiffness, tiredness, or avoiding one leg? If yes, could you tell me more? (Which leg, when it started, how it affects activity, etc.)"
+    text = "Have you noticed any signs of discomfort — like limping, stiffness, tiredness, or avoiding one leg? If yes, could you tell me more? (Which leg, when it started, how it affects activity, etc.)\nIf you have difficulty, write - unknown."
     keyboard = [[InlineKeyboardButton(text="Cancel", callback_data=str(CANCEL))]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.effective_message.reply_text(text=text, reply_markup=reply_markup)
@@ -217,8 +217,8 @@ async def waiting_process(context: ContextTypes.DEFAULT_TYPE) -> None:
     # в переменной result хранится конечный результат анализа, если не было никаких ошибок
     # text = f"Response to request #{session}:\n{result}"
     text = f"""Response to request #{session}:
+    
     {result}
-
 
     ⚠️ Please note: I am a virtual assistant and not a licensed veterinarian.
     The information I provide is for informational purposes only and is not a substitute for professional veterinary diagnosis or treatment.
@@ -231,10 +231,14 @@ async def waiting_process(context: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def handle_invalid_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.callback_query.answer()
+    event = update.effective_message.to_dict()
+    photo = event.get("photo", None)
+    video = event.get("video", None)
     text = "Sorry, the button is out of date 😕 Please re-enter the /start command"
-    await update.effective_message.edit_text(
-        text=text
-    )
+    if photo or video:
+        await update.effective_user.send_message(text=text)
+    else:
+        await update.effective_message.edit_text(text=text)
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.callback_query
