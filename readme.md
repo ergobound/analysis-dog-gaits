@@ -19,8 +19,9 @@ pip install flash-attn --no-build-isolation
 mkdir packages
 pip download -d packages name_module
 ```
-```
+
+
 Установка из папки:  
 ```
 pip install --no-index --find-links packages name_module
-``
+```
