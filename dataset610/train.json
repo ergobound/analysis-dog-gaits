@@ -7,7 +7,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/1.mp4"
+              "video_path": "/home/s2425823/dataset610v3/1.mp4"
             }
           },
           {
@@ -30,7 +30,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/2.mp4"
+              "video_path": "/home/s2425823/dataset610v3/2.mp4"
             }
           },
           {
@@ -53,18 +53,41 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/3.mp4"
+              "video_path": "/home/s2425823/dataset610v3/3.mp4"
             }
           },
           {
             "type": "text",
-            "text": "The dog in the video is a Dachshund, a small-sized breed with a long body and short legs. The dog appears to be an adult and is walking indoors on a leash next to a person dressed in dark clothing and boots. The environment resembles a veterinary clinic or rehabilitation center, with bright lighting and a clean, light-colored floor.\n\nIn the background, several objects are visible: a white wall-mounted radiator, a black trash bin, a set of small cardboard pet stairs, and a silver treadmill-like device or underwater treadmill. On the right side, there is a light blue folding chair and a white shelving unit with a few compartments containing black bags or equipment. A small piece of a blue carpet with white patterns can also be seen near the chair.\nAnalyze the video, and identify musculoskeletal disorders or gait problems in your dog."
+            "text": "The dog in the video is a Dachshund, a small-sized breed with a long body and short legs. The dog appears to be an adult and is walking indoors on a leash next to a person dressed in dark clothing and boots. The environment resembles a veterinary clinic or rehabilitation center, with bright lighting and a clean, light-colored floor.\n\nIn the background, several objects are visible: a white wall-mounted radiator, a black trash bin, a set of small cardboard pet stairs, and a silver treadmill-like device or underwater treadmill. On the right side, there is a light blue folding chair and a white shelving unit with a few compartments containing black bags or equipment. A small piece of a blue carpet with white patterns can also be seen near the chair.\nAnalyze the video, and identify musculoskeletal disorders or gait problems in dog."
           }
         ]
       },
       {
         "role": "assistant",
-        "content": "Observed condition:\nThe dog in the video appears to be a small to medium-sized muscular breed with a compact build, such as a Staffordshire Bull Terrier or similar.\nThe gait shows moderate stiffness in the hind legs, with reluctance to fully bend the hips and knees.\nDespite this, the dog maintains good energy and walks willingly.\n\nPossible issue:\nThis movement pattern is consistent with early-stage hip dysplasia or age-related arthritis.\n\nExplanation:\nDogs with these conditions often swing their legs outward to avoid discomfort and exhibit a slightly bouncing gait, especially when speeding up.\nThe dog’s relatively high energy level and steady pace suggest the issue is not yet severe and may be in early stages or under treatment.\n\nRecommendation:\nA veterinary orthopedic examination is recommended, including X-rays or physical palpation to evaluate joint health.\n\nRehabilitation options include:\n- Hydrotherapy (underwater treadmill): allows for supported movement with reduced joint pressure.\n- Anti-inflammatory medications (NSAIDs) or joint supplements (e.g., glucosamine).\n- Light physiotherapy and controlled daily walks to maintain mobility without strain."
+        "content": "Observed condition:\nThe dog in the video is a Dachshund, a small-sized breed with a long body and short legs.\nThe gait shows moderate stiffness in the hind legs, with reluctance to fully bend the hips and knees.\nDespite this, the dog maintains good energy and walks willingly.\n\nPossible issue:\nThis movement pattern is consistent with early-stage hip dysplasia.\n\nExplanation:\nDogs with these conditions often swing their legs outward to avoid discomfort and exhibit a slightly bouncing gait, especially when speeding up.\nThe dog’s relatively high energy level and steady pace suggest the issue is not yet severe and may be in early stages or under treatment.\n\nRecommendation:\nA veterinary orthopedic examination is recommended, including X-rays or physical palpation to evaluate joint health.\n\nRehabilitation options include:\n- Hydrotherapy (underwater treadmill): allows for supported movement with reduced joint pressure.\n- Anti-inflammatory medications (NSAIDs) or joint supplements (e.g., glucosamine).\n- Light physiotherapy and controlled daily walks to maintain mobility without strain."
+      }
+    ]
+  },
+    {
+    "conversations": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "video",
+            "video": {
+              "video_path": "/home/s2425823/dataset610v3/4.mp4"
+            }
+          },
+          {
+            "type": "text",
+            "text": "The dog in the video appears to be a small Pomeranian mix with a light tan and\ncream coat. The dog is walking slowly on a tiled indoor floor and seems to be chewing\nsomething while moving. It wears a collar with a tag, suggesting it is a pet under supervision.\nThe setting looks like a veterinary clinic or hospital examination room. In the background, we\ncan see a white electrical socket on a cream-colored wall, and a brown wooden surface,\npossibly a cabinet or door frame, is partially visible on the right. The lighting is even and clinical.\nPlease analyse the dog’s gait.\nAnalyze the video, and identify musculoskeletal disorders or gait problems in your dog."
+          }
+        ]
+      },
+      {
+        "role": "assistant",
+        "content": "Observed condition:\nThe dog is a small-sized breed, possibly a Pomeranian mix, and shows clear signs of lameness in the rear left limb.\nShe avoids placing weight on the leg and only briefly touches the ground with it to adjust position, which indicates pain or instability.\n\nPossible issue:\nThe posture and gait suggest a possible hip dislocation (luxation) or subluxation.\nThis occurs when the femoral head slips partially or fully out of the hip socket, often causing acute pain and immediate compensation in movement.\n\nExplanation:\nIn dogs with hip dislocation, it's common to see them hold the affected leg off the ground entirely or use it minimally only when necessary.\nThis protective behavior is a response to joint instability or pain.\n\nRecommendation:\nImmediate consultation with a veterinarian is essential.\nAn orthopedic exam and radiographs (X-rays) will confirm the condition.\nIf caught early, conservative treatments like closed reduction (manual repositioning) and crate rest may help avoid surgery.\nIn more severe cases, surgical correction may be required.\n\nEarly action can prevent complications and significantly reduce the risk of chronic joint damage."
       }
     ]
   },
@@ -76,12 +99,36 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/6.mp4"
+              "video_path": "/home/s2425823/dataset610v3/5.mp4"
             }
           },
           {
             "type": "text",
             "text": "The medium-sized mixed-breed dog with a coat pattern resembling a Rottweiler (black and\ntan), but clearly not a Rottweiler, is shown indoors on a concrete floor. The dog appears to be\ncompletely unable to stand or support weight on its hind limbs. A person is gently holding the\ndog from the chest and lifting it to help it sit, but the dog immediately collapses back down and\nlies on the ground.\nThe environment appears to be a simple indoor space with a bare concrete floor. The person\nassisting the dog is wearing flip-flops and shorts. In the background, green plastic or metal\nchairs are visible along with a wooden table leg in the corner of the frame. The lighting is\nnatural, coming from outside the camera view.\nAnalyze the dog's muscle tone, posture, and lack of movement to assess potential causes such\nas hind limb paralysis, neuromuscular disease, or spinal cord injury.\nPlease analyse the dog’s muscular-skeleton disease.\n\nAnalyze the video, and identify musculoskeletal disorders or gait problems in your dog."
+          }
+        ]
+      },
+      {
+        "role": "assistant",
+        "content": "Observed condition:\nThe dog appears to be a young, medium-sized mixed breed with severe weakness in its hind limbs.\nDespite being lifted and supported by a person, the dog shows no active effort to stand and quickly lies back down.\n\nPossible issue:\nThe symptoms are indicative of a neurological or muscular disorder, such as muscular dystrophy, mild muscular paralysis, or spinal cord damage (e.g., paraplegia).\n\nExplanation:\nParalysis in dogs can stem from trauma, infection, disc herniation, autoimmune disease, or congenital disorders.\nIn this case, the total lack of strength and voluntary movement may suggest progressive neuromuscular degeneration or acute spinal cord injury.\n\nRecommendation:\nImmediate veterinary attention is critical.\nA neurologic exam and imaging (MRI or X-rays) are needed to identify the source of the issue.\n\nTreatment options include:\n\n**Conservative therapy:**\n- Treating underlying causes (infection, inflammation, injury)\n- Vascular medications to improve circulation\n- Neuroprotective agents to preserve nerve function\n- Vitamin therapy to support nerve metabolism\n\n**Surgical intervention (if needed):**\n- Removal of tumors, hematomas, or disc fragments compressing the spinal cord\n\n**Rehabilitation:**\n- Physical therapy, massage, passive range of motion exercises\n- Support harnesses or carts\n\nPrognosis will depend on the underlying cause and how early treatment is initiated."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "video",
+            "video": {
+              "video_path": "/home/s2425823/dataset610v3/6.mp4"
+            }
+          },
+          {
+            "type": "text",
+            "text": "The adult German Shepherd is walking on a sidewalk alongside a person wearing a jacket and knee-high boots.\nThe dog has a sturdy build.\nThe leash is attached to the dog’s collar, and it walks confidently with a natural stride.\nIn the background, there is a street with vehicles passing, and a residential area with houses.\nIt’s a typical urban environment.\n.\nPlease analyse the dog’s gait."
+
           }
         ]
       },
@@ -99,7 +146,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/7.mp4"
+              "video_path": "/home/s2425823/dataset610v3/7.mp4"
             }
           },
           {
@@ -122,18 +169,18 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/8.mp4"
+              "video_path": "/home/s2425823/dataset610v3/8.mp4"
             }
           },
           {
             "type": "text",
-            "text": " The dog appears to be a medium-to-large breed puppy (possibly a Labrador mix or similar).\nVery young, likely around 3–5 months old.\nThe video takes place outdoors on a gravel surface with sparse patches of green grass. It\nappears to be a cloudy or overcast day. There are no people visible in the frame.\nThe puppy has a cream-colored coat and wears a red collar. It is actively sniffing the ground\nwhile walking slowly in a slightly hunched posture.\nIts head remains lowered, and the body shows cautious, slightly stiff movements.\nThe overall setting is quiet and spacious, with nothing visually obstructing the view of the dog.\nAnalyze the video, and identify musculoskeletal disorders or gait problems in your dog."
+            "text": " The dog appears to be a medium-to-large breed puppy (possibly a Labrador Retriever mix or similar).\nVery young, likely around 3–5 months old.\nThe video takes place outdoors on a gravel surface with sparse patches of green grass. It\nappears to be a cloudy or overcast day. There are no people visible in the frame.\nThe puppy has a cream-colored coat and wears a red collar. It is actively sniffing the ground\nwhile walking slowly in a slightly hunched posture.\nIts head remains lowered, and the body shows cautious, slightly stiff movements.\nThe overall setting is quiet and spacious, with nothing visually obstructing the view of the dog.\nAnalyze the video, and identify musculoskeletal disorders or gait problems in your dog."
           }
         ]
       },
       {
         "role": "assistant",
-        "content": "Observed condition:\nThe dog in the video is a young, large-breed puppy (possibly a Labrador Retriever), showing signs of stiffness, low energy, and reluctance to move.\nThe posture suggests discomfort in the limbs, especially in the forelimbs.\n\nPossible issue:\nThese symptoms are consistent with hypertrophic osteodystrophy (HOD) — a developmental bone disease affecting rapidly growing puppies of large breeds.\n\nExplanation:\nHOD is characterized by inflammation and structural abnormalities in the metaphyseal regions of long bones (e.g., radius, ulna).\nThis can cause:\n- Intermittent or progressive lameness\n- Localized pain on palpation of long bones\n- Swelling and warmth in limb joints\n- A stiff, almost robotic gait\n- Lethargy, poor appetite, and fever in severe cases\n\nDiagnosis:\n- Physical exam (noting pain, swelling)\n- X-rays to detect metaphyseal lucency, widening, or sclerosis\n- Bloodwork to check for elevated inflammation markers\n\nTreatment:\n- Nutritional management (correct calcium–phosphorus balance)\n- NSAIDs to control pain and inflammation\n- Restricted physical activity to avoid stress on growing bones\n- Supportive care (hydration, appetite support)\n\nIn most cases, with early treatment, dogs can recover well and continue normal growth. Severe cases may need close monitoring to prevent permanent deformities."
+        "content": "Observed condition:\nThe dog in the video is a puppy (possibly a Labrador Retriever), showing signs of stiffness, low energy, and reluctance to move.\nThe posture suggests discomfort in the limbs, especially in the forelimbs.\n\nPossible issue:\nThese symptoms are consistent with hypertrophic osteodystrophy (HOD) — a developmental bone disease affecting rapidly growing puppies of large breeds.\n\nExplanation:\nHOD is characterized by inflammation and structural abnormalities in the metaphyseal regions of long bones (e.g., radius, ulna).\nThis can cause:\n- Intermittent or progressive lameness\n- Localized pain on palpation of long bones\n- Swelling and warmth in limb joints\n- A stiff, almost robotic gait\n- Lethargy, poor appetite, and fever in severe cases\n\nDiagnosis:\n- Physical exam (noting pain, swelling)\n- X-rays to detect metaphyseal lucency, widening, or sclerosis\n- Bloodwork to check for elevated inflammation markers\n\nTreatment:\n- Nutritional management (correct calcium–phosphorus balance)\n- NSAIDs to control pain and inflammation\n- Restricted physical activity to avoid stress on growing bones\n- Supportive care (hydration, appetite support)\n\nIn most cases, with early treatment, dogs can recover well and continue normal growth. Severe cases may need close monitoring to prevent permanent deformities."
       }
     ]
   },
@@ -145,7 +192,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/9.mp4"
+              "video_path": "/home/s2425823/dataset610v3/9.mp4"
             }
           },
           {
@@ -168,12 +215,35 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/11.mp4"
+              "video_path": "/home/s2425823/dataset610v3/10.mp4"
             }
           },
           {
             "type": "text",
-            "text": "Possibly a Siberian Husky mix, adult.\nThe video shows a large, light-colored dog (possibly a Siberian Husky mix) being walked on a\nsidewalk in front of a residential neighborhood.\nThe dog is wearing a teal collar and is leashed, following a person dressed in sporty clothing.\nOnly the person's lower half is visible.\nIn the background, there is a brick house with an American flag, neatly trimmed lawn,\nmanicured hedges, and several trees.\nThe lighting and dry leaves on the ground suggest an early autumn day.\nAnalyze the video, and identify musculoskeletal disorders or gait problems in your dog."
+            "text": "Possibly a Siberian Husky mix, adult.\nThe video shows a medium-to-large, light-colored dog (possibly a Siberian Husky mix) being walked on a\nsidewalk in front of a residential neighborhood.\nThe dog is wearing a teal collar and is leashed, following a person dressed in sporty clothing.\nOnly the person's lower half is visible.\nIn the background, there is a brick house with an American flag, neatly trimmed lawn,\nmanicured hedges, and several trees.\nThe lighting and dry leaves on the ground suggest an early autumn day\n\nAnalyze the video, and identify musculoskeletal disorders or gait problems in your dog."
+          }
+        ]
+      },
+      {
+        "role": "assistant",
+        "content": "Observed condition:\nThe dog appears to be a medium-to-large adult, possibly a Siberian Husky mix.\nIt shows coordinated and symmetrical movement across all four limbs.\n\nGait analysis:\n- The stride is even and rhythmic\n- No signs of lameness, stiffness, or imbalance\n- Joints extend and flex smoothly\n- No signs of muscle wasting or favoring a limb\n\nConclusion:\nThe dog displays a healthy gait with no abnormalities observed.\nThere is no indication of orthopedic or neurological issues at the time of observation.\n\nNo intervention is necessary unless new symptoms arise."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "video",
+            "video": {
+              "video_path": "/home/s2425823/dataset610v3/11.mp4"
+            }
+          },
+          {
+            "type": "text",
+            "text": "The video features a young 7 months Rottweiler walking outside on a wet asphalt surface in a residential neighborhood.\nThe dog is off-leash and moving freely, though with a noticeable limp and occasional hopping motion.\nIn the background, there are parked vehicles, a low retaining wall, driveway, green grass, and garden shrubs, suggesting a suburban street setting.\nThe lighting indicates an overcast day, possibly after rain.\nPlease analyse the dog’s gait."
           }
         ]
       },
@@ -191,7 +261,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/12.mp4"
+              "video_path": "/home/s2425823/dataset610v3/12.mp4"
             }
           },
           {
@@ -214,18 +284,18 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/13.mp4"
+              "video_path": "/home/s2425823/dataset610v3/13.mp4"
             }
           },
           {
             "type": "text",
-            "text": "Malshi (Maltese × Shih Tzu) 5 years old.\nThe video shows a small white dog with a fluffy coat standing indoors on a polished wooden\nfloor.\nThe dog is wearing a collar with a red heart-shaped tag. In the background, there is a wooden\nchair and a corner of a rug.\nThe lighting is warm, suggesting a cozy home environment in the evening.\nAnalyze the video, and identify musculoskeletal disorders or gait problems in your dog."
+            "text": "Malshi (Maltese & Shih Tzu) 5 years old.\nThe video shows a small white dog with a fluffy coat standing indoors on a polished wooden\nfloor.\nThe dog is wearing a collar with a red heart-shaped tag. In the background, there is a wooden\nchair and a corner of a rug.\nThe lighting is warm, suggesting a cozy home environment in the evening.\nAnalyze the video, and identify musculoskeletal disorders or gait problems in your dog."
           }
         ]
       },
       {
         "role": "assistant",
-        "content": "Observed condition:\nLulu is a Malshi (Maltese × Shih Tzu) exhibiting a classic “skip” gait often associated with patellar luxation.\nShe entirely avoids bearing weight on her left hind leg and instead hops forward using her remaining limbs, which is common in small breeds with moderate to severe luxating patella.\n\nGait analysis:\n- Bunny-hopping motion when walking\n- Complete non-use of the left hind limb during stride\n- Signs of guarding and discomfort\n- When stationary, she may stand unevenly with the affected limb held slightly lifted\n\nLikely severity: Grade III\n- Patella is frequently out of place\n- Requires manual replacement or may remain luxated most of the time\n- Chronic pain due to sliding of the kneecap over the femoral ridge\n\nExplanation:\nLuxating patella occurs when the alignment of the quadriceps mechanism is off, causing the kneecap to slip medially or laterally.\nIn Lulu's case, this causes pain when the joint flexes and the kneecap misaligns, which explains her hopping behavior.\n\nRecommended treatment:\n- Surgical correction (e.g., trochleoplasty + tibial tuberosity transposition) is advised, especially at this grade\n- Post-op recovery involves rest, physiotherapy, and pain management\n- Without surgery, progressive joint damage and compensatory strain on other limbs may occur\n\nSupportive care until surgery:\n- Glucosamine/chondroitin supplements\n- Avoid stairs, jumping, or slippery floors (use rugs or grip socks)\n- NSAIDs under veterinary guidance\n- Harness instead of collar for walks\n\nPrognosis:\nWith surgical correction, the prognosis is excellent.\nLulu’s quality of life can be restored, and she will no longer need to endure daily pain and lameness."
+        "content": "Observed condition:\nLulu is a Malshi (Maltese & Shih Tzu) exhibiting a classic “skip” gait often associated with patellar luxation.\nShe entirely avoids bearing weight on her left hind leg and instead hops forward using her remaining limbs, which is common in small breeds with moderate to severe luxating patella.\n\nGait analysis:\n- Bunny-hopping motion when walking\n- Complete non-use of the left hind limb during stride\n- Signs of guarding and discomfort\n- When stationary, she may stand unevenly with the affected limb held slightly lifted\n\nLikely severity: Grade III\n- Patella is frequently out of place\n- Requires manual replacement or may remain luxated most of the time\n- Chronic pain due to sliding of the kneecap over the femoral ridge\n\nExplanation:\nLuxating patella occurs when the alignment of the quadriceps mechanism is off, causing the kneecap to slip medially or laterally.\nIn Lulu's case, this causes pain when the joint flexes and the kneecap misaligns, which explains her hopping behavior.\n\nRecommended treatment:\n- Surgical correction (e.g., trochleoplasty + tibial tuberosity transposition) is advised, especially at this grade\n- Post-op recovery involves rest, physiotherapy, and pain management\n- Without surgery, progressive joint damage and compensatory strain on other limbs may occur\n\nSupportive care until surgery:\n- Glucosamine/chondroitin supplements\n- Avoid stairs, jumping, or slippery floors (use rugs or grip socks)\n- NSAIDs under veterinary guidance\n- Harness instead of collar for walks\n\nPrognosis:\nWith surgical correction, the prognosis is excellent.\nLulu’s quality of life can be restored, and she will no longer need to endure daily pain and lameness."
       }
     ]
   },
@@ -237,7 +307,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/14.mp4"
+              "video_path": "/home/s2425823/dataset610v3/14.mp4"
             }
           },
           {
@@ -260,7 +330,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/15.mp4"
+              "video_path": "/home/s2425823/dataset610v3/15.mp4"
             }
           },
           {
@@ -283,7 +353,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/16.mp4"
+              "video_path": "/home/s2425823/dataset610v3/16.mp4"
             }
           },
           {
@@ -297,11 +367,7 @@
         "content": "Observed condition:\nThe dog in the video is a Siberian Husky of medium-large size.\nIt shows subtle asymmetry while walking, slightly favoring one of the hind limbs.\nThe gait appears cautious, and there is occasional offloading of the affected leg, which may indicate early discomfort in the hip joint.\n\nPossible issue:\nThese signs are consistent with early to moderate hip dysplasia — a common orthopedic condition in large-breed dogs like Huskies.\n\nExplanation:\nHip dysplasia occurs when the ball and socket of the hip joint do not fit together properly, causing joint laxity, inflammation, and eventual cartilage wear.\nCommon symptoms include:\n- Swaying or bunny-hopping gait\n- Difficulty rising or jumping\n- Muscle atrophy in hindquarters\n- Reluctance to exercise or run\n\nDiagnosis:\n- Orthopedic examination and palpation (e.g., Ortolani test)\n- Radiographic imaging to assess joint laxity and degenerative changes\n\nTreatment:\n- Joint supplements: glucosamine and chondroitin (noted by the owner as helpful)\n- NSAIDs for pain and inflammation management\n- Controlled exercise and hydrotherapy\n- Weight control to reduce joint stress\n- In severe cases: surgical intervention (e.g., femoral head ostectomy or total hip replacement)\n\nPrognosis:\nWith early management and proper care, dogs with hip dysplasia can live active lives.\nGlucosamine and structured exercise often improve comfort and mobility in mild to moderate cases."
       }
     ]
-  }
-
-
-
-  ,
+  },
   {
     "conversations": [
       {
@@ -310,7 +376,30 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/18.mp4"
+              "video_path": "/home/s2425823/dataset610v3/17.mp4"
+            }
+          },
+          {
+            "type": "text",
+            "text": "The German Shepherd of mature age is walking on a gravel path alongside an elderly man\nholding a cane.\nThe dog displays a typical German Shepherd coat — tan with a black saddle and muzzle. It\nwalks closely beside the man, showing signs of loyalty and calmness. The environment is an\noutdoor garden or park-like area, with tall bushes and yellow flowers along the edges of the\npath. The man is dressed in a floral shirt, shorts, and sneakers, and appears relaxed.\nThe sun is shining brightly, indicating that it’s a warm and pleasant day. The dog is not on a\nleash but stays near the man's side.\nAnalyze the gait of the German Shepherd, paying attention to rear limb movement for signs of\nhip stiffness or dysplasia. Note if the dog shifts weight, limps, or exhibits hesitation during the\nwalk.\n\nAnalyze the video, and identify musculoskeletal disorders or gait problems in your dog."
+          }
+        ]
+      },
+      {
+        "role": "assistant",
+        "content": "Observed condition:\nThe dog in the video is an adult German Shepherd walking with a noticeable asymmetry in head movement.\nThe head drops when the dog steps on the left front limb and lifts when stepping on the right front limb.\n\nThis compensatory movement pattern suggests the dog is experiencing pain or discomfort in the right front leg.\n\nPossible issue:\nThe signs are consistent with elbow dysplasia in the right forelimb — a common orthopedic issue in large-breed dogs like German Shepherds.\n\nExplanation:\nElbow dysplasia involves abnormal development of the elbow joint, often including fragmented medial coronoid process (FMCP), ununited anconeal process (UAP), or osteochondritis dissecans (OCD).\nThese abnormalities lead to joint incongruity, inflammation, and pain.\n\nSymptoms typically include:\n– Intermittent or persistent lameness in a forelimb\n– Head bobbing (down on sound limb, up on painful limb)\n– Reluctance to exercise or bear weight\n– Swelling or thickening of the affected elbow\n\nDiagnosis:\n– Orthopedic examination (flexion/extension test)\n– Radiographs or CT scans to assess elbow structure\n– Palpation for pain response or crepitus\n\nTreatment:\n– NSAIDs for pain and inflammation\n– Joint supplements (glucosamine, omega-3 fatty acids)\n– Weight control and low-impact exercise\n– In moderate to severe cases: surgical intervention (e.g., arthroscopy to remove fragments or correct incongruity)\n\nPrognosis:\nEarly detection and treatment can reduce pain and slow joint degeneration.\nWith proper management, many dogs maintain good quality of life and activity levels."
+      }
+    ]
+  },
+  {
+    "conversations": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "video",
+            "video": {
+              "video_path": "/home/s2425823/dataset610v3/18.mp4"
             }
           },
           {
@@ -333,7 +422,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/19.mp4"
+              "video_path": "/home/s2425823/dataset610v3/19.mp4"
             }
           },
           {
@@ -356,7 +445,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/20.mp4"
+              "video_path": "/home/s2425823/dataset610v3/20.mp4"
             }
           },
           {
@@ -379,7 +468,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/21.mp4"
+              "video_path": "/home/s2425823/dataset610v3/21.mp4"
             }
           },
           {
@@ -402,7 +491,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/22.mp4"
+              "video_path": "/home/s2425823/dataset610v3/22.mp4"
             }
           },
           {
@@ -425,7 +514,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/23.mp4"
+              "video_path": "/home/s2425823/dataset610v3/23.mp4"
             }
           },
           {
@@ -448,7 +537,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/24.mp4"
+              "video_path": "/home/s2425823/dataset610v3/24.mp4"
             }
           },
           {
@@ -471,7 +560,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/25.mp4"
+              "video_path": "/home/s2425823/dataset610v3/25.mp4"
             }
           },
           {
@@ -494,7 +583,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/26.mp4"
+              "video_path": "/home/s2425823/dataset610v3/26.mp4"
             }
           },
           {
@@ -517,7 +606,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/27.mp4"
+              "video_path": "/home/s2425823/dataset610v3/27.mp4"
             }
           },
           {
@@ -540,7 +629,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/28.mp4"
+              "video_path": "/home/s2425823/dataset610v3/28.mp4"
             }
           },
           {
@@ -563,7 +652,7 @@
           {
             "type": "video",
             "video": {
-              "video_path": "/home/s2425823/dataset610/18.mp4"
+              "video_path": "/home/s2425823/dataset610v3/29.mp4"
             }
           },
           {

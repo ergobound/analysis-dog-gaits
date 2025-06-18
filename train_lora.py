@@ -20,9 +20,9 @@ torch.cuda.empty_cache()
 # Пути к модели:
 model_path = "/home/s2425823/.cache/huggingface/hub/models--DAMO-NLP-SG--VideoLLaMA3-7B/snapshots/a498675483e2be8e98d092a2cb11a608c2caa8dd"
 # Путь к обученой через lora модели
-path_finetuned_model = "/home/s2425823/lora_videollama_finetuned_610v3_DubiDub" 
+path_finetuned_model = "/home/s2425823/lora_videollama_finetuned_610v3_30fps_5epochs" 
 # Путь к файлам настройки тренировки:
-out_dir = "/home/s2425823/dog_gait_lora_610v3_DubiDub"
+out_dir = "/home/s2425823/dog_gait_lora_610v3_30fps_5epochs"
 
 json_path = "/home/s2425823/dataset610/train.json" # путь к train датасету
 # val_path = "/home/s2425823/dataset610/val.json" # путь к validate датасету
@@ -32,7 +32,7 @@ REMOTE_DIR = f"/home/{USERNAME}"
 device = "cuda"
 
 # Функция для обработки видео.
-def video_processor(video_path, num_frames=180, size=(610, 610)): # 224, 224
+def video_processor(video_path, num_frames=30, size=(610, 610)): # 224, 224
     cap = cv2.VideoCapture(video_path)
     frames = []
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -158,7 +158,7 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(model_path, 
                                             trust_remote_code=True,
                                             local_files_only=True)
-    # trust_remote_code=True, # если True, используется базовый класс, например VideoLLaMAForCausalLM, внутри которого переопределён метод .generate(), и в нём по умолчанию задан temperature=0.7 и скорее всего другие параметры. Это поведение задаётся в коде самой модели, которую стоит, например DAMO-NLP-SG/VideoLLaMA3-7B
+    # trust_remote_code=True, # если True, используется базовый класс, например VideoLLaMAForCausalLM, внутри которого переопределён метод .generate(), и в нём по умолчанию задан temperature=0.7 и скорее всего другие параметры. Это поведение задаётся в коде самой модели, которая стоит, например DAMO-NLP-SG/VideoLLaMA3-7B
     model = AutoModelForCausalLM.from_pretrained(model_path,
                                             device_map="auto", 
                                             trust_remote_code=True,
@@ -199,7 +199,7 @@ def main():
         num_train_epochs=3, # Количество эпох (слишком много эпох переучит модель)
         per_device_train_batch_size=1,
         gradient_accumulation_steps=4,
-        learning_rate=1e-10, # Начальная скорость обучения
+        learning_rate=1e-5, # Начальная скорость обучения
         fp16=False, # fp16=True - используем половинную точность
         logging_steps=10, # Каждые N шагов выводить логи (loss, lr и пр.)
         save_steps=100, # Каждые N шагов сохранять чекпоинт модели

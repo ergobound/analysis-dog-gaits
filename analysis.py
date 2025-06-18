@@ -6,6 +6,8 @@ import gc
 gc.collect()
 torch.cuda.empty_cache()
 
+# torch.manual_seed(42)
+
 USERNAME = "s2425823"
 REMOTE_DIR = f"/home/{USERNAME}"
 
@@ -16,6 +18,7 @@ model_path = "/home/s2425823/.cache/huggingface/hub/models--DAMO-NLP-SG--VideoLL
 
 # путь к модели, обученной через LoRa:
 tuned_model_path = "/home/s2425823/lora_videollama_finetuned_610_28_3epochs_speed10"
+# tuned_model_path = "/home/s2425823/lora_videollama_finetuned_610v3_5epochs_speed10_god"
 
 model = AutoModelForCausalLM.from_pretrained(
     model_path,
@@ -61,6 +64,12 @@ conversation = [
     },
 ]
 
+generation_params = {
+    "temperature": 0.1,    # Полностью детерминировано
+    "top_p": 1.0,          # Отключает вероятностную выборку
+    "do_sample": False     # Обязательно
+}
+
 inputs = processor(
     conversation=conversation,
     add_system_prompt=True,
@@ -70,7 +79,9 @@ inputs = processor(
 inputs = {k: v.to(device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
 if "pixel_values" in inputs:
     inputs["pixel_values"] = inputs["pixel_values"].to(torch.bfloat16)
-output_ids = model.generate(**inputs, max_new_tokens=4000)
+
+output_ids = model.generate(**inputs, max_new_tokens=4000, ) # **generation_params
+
 response = processor.batch_decode(output_ids, skip_special_tokens=True)[0].strip()
 
 ####################################################
