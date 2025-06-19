@@ -6,6 +6,7 @@ import gc
 gc.collect()
 torch.cuda.empty_cache()
 
+# seed:
 # torch.manual_seed(42)
 
 USERNAME = "s2425823"
@@ -35,11 +36,8 @@ processor = AutoProcessor.from_pretrained(model_path,
 
 model = PeftModel.from_pretrained(model, tuned_model_path)
 
-# Слияние LoRA-адаптеров с базовой моделью и выгрузка PEFT-компонентов (Объединение весов; опционально)
-# чтобы модель стала "плоской" и могла использоваться как обычная HuggingFace-модель:
+# Слияние (объединение весов) и сохранение:
 # model = model.merge_and_unload()
-
-# Сохранение итоговой модели и токенизатора для последующего инференса
 # save_dir = "path/to/exported_model"
 # model.save_pretrained(save_dir)
 # tokenizer.save_pretrained(save_dir)
@@ -64,11 +62,11 @@ conversation = [
     },
 ]
 
-generation_params = {
-    "temperature": 0.1,    # Полностью детерминировано
-    "top_p": 1.0,          # Отключает вероятностную выборку
-    "do_sample": False     # Обязательно
-}
+# generation_params = {
+#     "temperature": 0.3,    # 0.0 - полностью детерминировано
+#     "top_p": 1.0,          # Отключает вероятностную выборку
+#     "do_sample": False     # Обязательно
+# }
 
 inputs = processor(
     conversation=conversation,
@@ -83,43 +81,6 @@ if "pixel_values" in inputs:
 output_ids = model.generate(**inputs, max_new_tokens=4000, ) # **generation_params
 
 response = processor.batch_decode(output_ids, skip_special_tokens=True)[0].strip()
-
-####################################################
-# response = "TRAIN LORA MODEL:\n" + response
-# del model
-# del processor
-# gc.collect()
-# torch.cuda.empty_cache()
-
-# model = AutoModelForCausalLM.from_pretrained(
-#     model_path,
-#     trust_remote_code=True,
-#     device_map={"": device},
-#     torch_dtype=torch.bfloat16,
-#     attn_implementation="flash_attention_2",
-#     local_files_only=True
-# )
-
-# processor = AutoProcessor.from_pretrained(model_path,
-#                                           trust_remote_code=True,
-#                                           local_files_only=True)
-
-# inputs = processor(
-#     conversation=conversation,
-#     add_system_prompt=True,
-#     add_generation_prompt=True,
-#     return_tensors="pt"
-# )
-# inputs = {k: v.to(device) if isinstance(v, torch.Tensor) else v for k, v in inputs.items()}
-# if "pixel_values" in inputs:
-#     inputs["pixel_values"] = inputs["pixel_values"].to(torch.bfloat16)
-# output_ids = model.generate(**inputs, max_new_tokens=4000)
-# response2 = processor.batch_decode(output_ids, skip_special_tokens=True)[0].strip()
-
-# response = response + "\n\nBASE MODEL:\n" + response2
-
-####################################################
-
 
 with open("finish.txt", "w", encoding="utf-8") as file:
     file.write(response)

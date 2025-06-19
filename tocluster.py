@@ -20,6 +20,7 @@ source /home/s2425823/test8/bin/activate
 
 export HTTP_PROXY=http://proxy.utwente.nl:3128
 export HTTPS_PROXY=http://proxy.utwente.nl:3128
+
 export CUDA_HOME=/deepstore/software/nvidia/cuda-12.4
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
