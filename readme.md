@@ -25,3 +25,12 @@ pip download -d packages name_module
 ```
 pip install --no-index --find-links packages name_module
 ```
+
+---
+Скачать модель с huggingface:
+```
+huggingface-cli download DAMO-NLP-SG/VideoLLaMA3-7B
+```
+---
+
+The video segment only-walk.mp4 was taken from youtube.com/watch?v=grGYAnFae7c (Stephen Cunnane)
